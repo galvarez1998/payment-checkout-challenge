@@ -4,7 +4,9 @@ import { TransactionRepository } from '../../../domain/repositories/transaction.
 import { TransactionEntity } from '../entities/transaction.entity';
 import { TransactionMapper } from '../mappers/transaction.mapper';
 import { Transaction } from '../../../domain/entities/transaction.entity';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class TransactionRepositoryImpl implements TransactionRepository {
   constructor(
     @InjectRepository(TransactionEntity)

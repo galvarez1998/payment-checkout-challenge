@@ -4,7 +4,9 @@ import { ProductRepository } from '../../../domain/repositories/product.reposito
 import { ProductEntity } from '../entities/product.entity';
 import { ProductMapper } from '../mappers/product.mapper';
 import { Product } from '../../../domain/entities/product.entity';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ProductRepositoryImpl implements ProductRepository {
   constructor(
     @InjectRepository(ProductEntity)
