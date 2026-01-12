@@ -1,10 +1,18 @@
 import { Result, ok, fail } from '../../shared/result';
-import { TransactionRepository } from '../../domain/repositories/transaction.repository';
-import { PaymentGateway } from '../ports/payment-gateway.port';
+import type { TransactionRepository } from '../../domain/repositories/transaction.repository';
+import type { PaymentGateway } from '../ports/payment-gateway.port';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  PAYMENT_GATEWAY,
+  TRANSACTION_REPOSITORY,
+} from 'src/domain/repositories/tokens';
 
+@Injectable()
 export class ProcessPaymentUseCase {
   constructor(
+    @Inject(TRANSACTION_REPOSITORY)
     private readonly transactionRepo: TransactionRepository,
+    @Inject(PAYMENT_GATEWAY)
     private readonly paymentGateway: PaymentGateway,
   ) {}
 

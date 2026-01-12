@@ -1,20 +1,32 @@
 import { ok, fail, Result } from '../../shared/result';
-import { ProductRepository } from '../../domain/repositories/product.repository';
-import { StockRepository } from '../../domain/repositories/stock.repository';
-import { CustomerRepository } from '../../domain/repositories/customer.repository';
-import { TransactionRepository } from '../../domain/repositories/transaction.repository';
+import type { ProductRepository } from '../../domain/repositories/product.repository';
+import type { StockRepository } from '../../domain/repositories/stock.repository';
+import type { CustomerRepository } from '../../domain/repositories/customer.repository';
+import type { TransactionRepository } from '../../domain/repositories/transaction.repository';
 import { Transaction } from '../../domain/entities/transaction.entity';
 import { TransactionStatus } from '../../domain/entities/transaction-status.enum';
 import { Customer } from '../../domain/entities/customer.entity';
 import { Email } from '../../domain/value-objects/email.vo';
 import { Phone } from '../../domain/value-objects/phone.vo';
 import { v4 as uuid } from 'uuid';
+import {
+  PRODUCT_REPOSITORY,
+  TRANSACTION_REPOSITORY,
+  STOCK_REPOSITORY,
+  CUSTOMER_REPOSITORY,
+} from 'src/domain/repositories/tokens';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CreateTransactionUseCase {
   constructor(
+    @Inject(PRODUCT_REPOSITORY)
     private readonly productRepo: ProductRepository,
+    @Inject(STOCK_REPOSITORY)
     private readonly stockRepo: StockRepository,
+    @Inject(CUSTOMER_REPOSITORY)
     private readonly customerRepo: CustomerRepository,
+    @Inject(TRANSACTION_REPOSITORY)
     private readonly transactionRepo: TransactionRepository,
   ) {}
 

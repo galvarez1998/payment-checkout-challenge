@@ -1,13 +1,21 @@
 import { Result, ok, fail } from '../../shared/result';
-import { TransactionRepository } from '../../domain/repositories/transaction.repository';
-import { DeliveryRepository } from '../../domain/repositories/delivery.repository';
+import type { TransactionRepository } from '../../domain/repositories/transaction.repository';
+import type { DeliveryRepository } from '../../domain/repositories/delivery.repository';
 import { Delivery } from '../../domain/entities/delivery.entity';
 import { TransactionStatus } from '../../domain/entities/transaction-status.enum';
 import { v4 as uuid } from 'uuid';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  TRANSACTION_REPOSITORY,
+  DELIVERY_REPOSITORY,
+} from 'src/domain/repositories/tokens';
 
+@Injectable()
 export class CreateDeliveryUseCase {
   constructor(
+    @Inject(TRANSACTION_REPOSITORY)
     private readonly transactionRepo: TransactionRepository,
+    @Inject(DELIVERY_REPOSITORY)
     private readonly deliveryRepo: DeliveryRepository,
   ) {}
 

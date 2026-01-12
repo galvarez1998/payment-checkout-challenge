@@ -13,7 +13,6 @@ export class WompiPaymentAdapter implements PaymentGateway {
     cardToken: string;
   }): Promise<{ success: boolean; reference: string }> {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       const response = await axios.post(
         `${this.apiUrl}/transactions`,
         {

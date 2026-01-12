@@ -1,11 +1,19 @@
 import { Result, ok, fail } from '../../shared/result';
-import { StockRepository } from '../../domain/repositories/stock.repository';
-import { TransactionRepository } from '../../domain/repositories/transaction.repository';
+import type { StockRepository } from '../../domain/repositories/stock.repository';
+import type { TransactionRepository } from '../../domain/repositories/transaction.repository';
 import { TransactionStatus } from '../../domain/entities/transaction-status.enum';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  TRANSACTION_REPOSITORY,
+  STOCK_REPOSITORY,
+} from 'src/domain/repositories/tokens';
 
+@Injectable()
 export class UpdateStockUseCase {
   constructor(
+    @Inject(STOCK_REPOSITORY)
     private readonly stockRepo: StockRepository,
+    @Inject(TRANSACTION_REPOSITORY)
     private readonly transactionRepo: TransactionRepository,
   ) {}
 
